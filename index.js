@@ -37,9 +37,17 @@ function exampleFunction(num1, num2) {
  *   email: "leia@leia.com",
  * }
 */
-function makePersonObject(/* code here */) {
-  /* code here */
-}
+function makePersonObject(id, name, email) {
+    const obj = {
+      id: id,
+      name: name,
+      email: email,
+    };
+    return obj;
+  }
+makePersonObject(5, 'Leia', 'leia@leia.com');
+  
+  
 
 /**
  * ### Challenge `getName`
@@ -54,8 +62,19 @@ function makePersonObject(/* code here */) {
  * passing { id: 1, name: 'Leia', email: 'leia@leia.com` } as the argument,
  * the returned value should look like `Hello, my name is Leia`.
 */
-function getName(/* code here */) {
-  /* code here */
+// function getName(id, name, email) {
+//   const personOne = {
+//     id: id,
+//     name: name,
+//     email: email,
+//   };
+//   return ('Hello, my name is ' + this.name);
+  
+// }
+// getName(1, 'Leia', 'leia@leia.com');
+
+function getName(obj) {
+  return `Hello, my name is ${obj.name}`;
 }
 
 /**
@@ -71,9 +90,19 @@ function getName(/* code here */) {
  *         and returns a string like `Hello, my name is {name}`.
  *         where `{name}` is the name passed into `makeSmartPerson`.
 */
-function makeSmartPerson(/* code here */) {
-  /* code here */
+function makeSmartPerson(name) {
+  const smartPerson= {
+    name: name,
+    sum: function(a, b) {
+      return a + b;
+    },
+    speak: function() {
+      return 'Hello, my name is ' + this.name;
+    },
+  };
+  return smartPerson;
 }
+  
 
 /**
  * ### Challenge `getCarInfoByIndex`
