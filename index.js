@@ -176,6 +176,16 @@ function sortCarInventory(arr) {
   )
 }
 
+// function sortCarInventory(inventory) {
+//   inventory.sort((a, b) => {
+//     if (a.car_model < b.car_model) {
+//       return 1
+//     } else {
+//       return -1
+//     }
+//   })
+// }
+
 /**
  * ### Challenge `getModelYears`
  * 
@@ -186,11 +196,11 @@ function sortCarInventory(arr) {
  * getModelYears returns an array containing all the 'car_year's in the inventory.
 */
 function getModelYears(inventory) {
-    const model = []
-    for (let i = 0; i < inventory.length; i++) {
-      const years = inventory[i];
-      model.push(years.car_year);
-    }
+  const modelYear = [];
+  for(let i=0; i < inventory.length; i++) {
+    modelYear.push(inventory[i].car_year)
+  }
+  return modelYear;
 }
 
 
@@ -207,9 +217,17 @@ function getModelYears(inventory) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(inventory, index) {
-  return index.car_year;
+function getOlderCars(inventory, num1) {
+  const olderCars = []; 
+    for(let i=0; i < inventory.length; i++) {
+      switch(inventory[i].car_year) {
+        case "num1":
+      olderCars.push(inventory[i].num1)
+    }
+    return olderCars;
+  }
 }
+
 
 /**
  * ### Challenge `getGermanCars`
@@ -223,7 +241,20 @@ function getOlderCars(inventory, index) {
  * in the same order as they appear in the original inventory.
 */
 function getGermanCars(inventory) {
-  /* code here */
+  const germanCars = [];
+  for(let i=0; i < inventory.length; i++) {
+    switch(inventory[i].car_make) {
+      case "Audi":
+      case "Mercedes-Benz":
+      case "Volkswagen":
+      case "BMW":
+        germanCars.push(inventory[i])
+        break;
+        default:
+        break;
+    }
+  }
+  return germanCars;
 }
 
 /**
