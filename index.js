@@ -217,16 +217,32 @@ function getModelYears(inventory) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(inventory, num1) {
-  const olderCars = []; 
-    for(let i=0; i < inventory.length; i++) {
-      switch(inventory[i].car_year) {
-        case "num1":
-      olderCars.push(inventory[i].num1)
-    }
-    return olderCars;
-  }
+// function getOlderCars(inventory, num1) {
+//   const olderCars = []; 
+//     for(let i=0; i < inventory.length; i++) {
+//       switch(inventory[i].car_year) {
+//         case "num1":
+//          olderCars.push(inventory[i].num1)
+//         break;
+//         case "highest":
+//           olderCars.push(inventory[i].length)
+//          break;
+//           default:
+//     }
+//     return olderCars;
+//   }
+// }
+
+function getOlderCars(inventory,year) {
+  let newInventory =[];
+  inventory.forEach(function(a){
+      if(a.car_year <= year){
+          newInventory.push(a);
+      }
+  })
+    return newInventory;
 }
+
 
 
 /**
