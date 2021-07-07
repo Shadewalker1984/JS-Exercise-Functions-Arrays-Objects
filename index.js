@@ -37,16 +37,24 @@ function exampleFunction(num1, num2) {
  *   email: "leia@leia.com",
  * }
 */
-function makePersonObject(/* code here */) {
-  /* code here */
-}
+function makePersonObject(id, name, email) {
+    const obj = {
+      id: id,
+      name: name,
+      email: email,
+    };
+    return obj;
+  }
+makePersonObject(5, 'Leia', 'leia@leia.com');
+  
+  
 
 /**
  * ### Challenge `getName`
  * 
  * @instructions
  * This function takes as its only argument
- * an object containing a `name` property,
+ * an object containing a `name` property,    /////this means the object already exists, and only has the name property in it. The argument IS the parameter
  * and return a string that reads `Hello, my name is {name}`,
  * where `{name}` is the name stored in the object.
  * 
@@ -54,8 +62,19 @@ function makePersonObject(/* code here */) {
  * passing { id: 1, name: 'Leia', email: 'leia@leia.com` } as the argument,
  * the returned value should look like `Hello, my name is Leia`.
 */
-function getName(/* code here */) {
-  /* code here */
+// function getName(id, name, email) {
+//   const personOne = {
+//     id: id,
+//     name: name,
+//     email: email,
+//   };
+//   return ('Hello, my name is ' + this.name);               //////first attempt. Did not understand. 
+  
+// }
+// getName(1, 'Leia', 'leia@leia.com');
+ 
+function getName(obj) {                       ////the argument IS the object itself. The object has a property of a name (probably among others), and it's asking for the function to return just the name in a string.
+  return `Hello, my name is ${obj.name}`;    ////it calls the object, and asks specifically for the name inside. So I am using the obj.name pull.
 }
 
 /**
@@ -71,9 +90,19 @@ function getName(/* code here */) {
  *         and returns a string like `Hello, my name is {name}`.
  *         where `{name}` is the name passed into `makeSmartPerson`.
 */
-function makeSmartPerson(/* code here */) {
-  /* code here */
+function makeSmartPerson(name) {  ///function taking only the name argument
+  const smartPerson= {    ///THIS IS THE OBJECT.
+    name: name,               ///this is the name within the object
+    sum: function(a, b) {       ////This is the sum function that is inside the object, it returns a number and a second number added
+      return a + b;            ////the actual sum function operators. 
+    },
+    speak: function() {            ////this is the speak function, it takes no arguments, this is also inside the original object
+      return 'Hello, my name is ' + this.name;           ////this is the string returned, "this" is being used to reference the specific name within the parent object.
+    },
+  };
+  return smartPerson;                              ////the question asks for a return. This is that return. it's returning the object. 
 }
+  
 
 /**
  * ### Challenge `getCarInfoByIndex`
@@ -87,10 +116,9 @@ function makeSmartPerson(/* code here */) {
  * For example, if getCarInfoByIndex is invoked with the inventory and the number 0,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoByIndex(/* code here */) {
-  /* code here */
+function getCarInfoByIndex(inventory, index)   {               ///inventory is the referenced, premade inventory list; index would be the item number within the inventory itself.
+ return 'This is a ' + inventory[index].car_make + inventory[index].car_model;   ///this is returning .inventory-->index number within inventory -- .car_make for specifically the car make.
 }
-
 /**
  * ### Challenge `getLastCarInfo`
  * 
@@ -102,10 +130,13 @@ function getCarInfoByIndex(/* code here */) {
  * For example, if getLastCarInfo is invoked passing the inventory inside /data/inventory.js,
  * it will return `This is a Lincoln Town Car`.
 */
-function getLastCarInfo(/* code here */) {
-  /* code here */
-}
+// function getLastCarInfo(inventory) {
+//   return 'This is a ' + inventory[49].car_make  + inventory[49].car_model;    ///first attempt: this requires knowledge of the length of the list.  This works, but is inefficient. 
+// }
 
+function getLastCarInfo(inventory) {
+  return 'This is a ' + inventory[inventory.length - 1].car_make + inventory[inventory.length - 1].car_model;  //this is the adapting one. it uses the indexd 0 length minus -1. if it's 50 cars. it would be 49 total, since 0 is indexed. so. 50 items, minus 1, is the last in the index 
+}
 /**
  * ### Challenge `getCarInfoById`
  * 
@@ -118,8 +149,8 @@ function getLastCarInfo(/* code here */) {
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoById(/* code here */) {
-  /* code here */
+function getCarInfoById(inventory, idNum) {
+  return 'This is a ' +  inventory[idNum - 1].car_make + inventory[idNum - 1].car_model;  ///like the one above, but this time, it allows you to input the specific number you wish to view. Same principle. 0 is indexed, so number of item -1 is the correct position
 }
 
 /**
@@ -130,9 +161,33 @@ function getCarInfoById(/* code here */) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * sortCarInventory returns an inventory that is sorted by car_model, ascending [A-Z].
 */
-function sortCarInventory(/* code here */) {
-  /* code here */
+
+function sortCarInventory(arr) {                    //inventory function with inventory list
+  return arr.sort (                                     ///sort method insertion
+      function (a, b) {                                    ///two variables, for comparison use, arbitrarily named a and b for ease
+          if (a["car_model"] < b["car_model"]){                       ///initial IF statement. could also be structured with a.car_model < b.car_model
+              return -1;                                          ///this will move UP the list
+          } else if (a["car_model"] > b["car_model"]){              ///opposite of first if statement, second in a list, will use elseif because the else comes next. this moves an item DOWN the list
+              return 1;                                          ////moves item down the list, 
+          } else {                                            ////final else statement
+              return 0;                                           ////default
+          }
+      }
+  )
 }
+
+// function sortCarInventory(inventory) {                   ////original attempt. used Turnary language. 
+//   inventory.sort((a, b) => {
+//     if (a.car_model < b.car_model) {
+//       return 1
+//     } elseif {
+//       return -1
+//     } else {
+//       return 0
+//     } 
+
+//   })
+// }
 
 /**
  * ### Challenge `getModelYears`
@@ -143,9 +198,15 @@ function sortCarInventory(/* code here */) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * getModelYears returns an array containing all the 'car_year's in the inventory.
 */
-function getModelYears(/* code here */) {
-  /* code here */
+function getModelYears(inventory) {                           ///original function
+  const modelYear = [];                                          ////this creates a BLANK, NEW array/list
+  for(let i=0; i < inventory.length; i++) {                       ////original For-loop, using inventory.length.
+    modelYear.push(inventory[i].car_year)                            ////This is pushing items into the new list based on the inventory/[i] current liste item/ car_year
+  }
+  return modelYear;                                                     ////once complete, this returns the new list. 
 }
+
+
 
 /**
  * ### Challenge `getOlderCars`
@@ -159,9 +220,33 @@ function getModelYears(/* code here */) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(/* code here */) {
-  /* code here */
+// function getOlderCars(inventory, num1) {
+//   const olderCars = []; 
+//     for(let i=0; i < inventory.length; i++) {
+//       switch(inventory[i].car_year) {
+//         case "num1":
+//          olderCars.push(inventory[i].num1)
+//         break;
+//         case "highest":
+//           olderCars.push(inventory[i].length)
+//          break;
+//           default:
+//     }
+//     return olderCars;
+//   }
+// }
+
+function getOlderCars(inventory,year) {
+  let newInventory =[];
+  inventory.forEach(function(a){
+      if(a.car_year <= year){
+          newInventory.push(a);
+      }
+  })
+    return newInventory;
 }
+
+
 
 /**
  * ### Challenge `getGermanCars`
@@ -174,8 +259,21 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(/* code here */) {
-  /* code here */
+function getGermanCars(inventory) {
+  const germanCars = [];
+  for(let i=0; i < inventory.length; i++) {
+    switch(inventory[i].car_make) {           ///new concept. Switch will switch the i for each case underneath. This searches the array, and then executes the code below based on each case
+      case "Audi":
+      case "Mercedes-Benz":
+      case "Volkswagen":
+      case "BMW":
+        germanCars.push(inventory[i])    ///  This is the push into the new array, 
+        break;                                      ////this break happens after every push
+        default:                              ////this brings the case back to default
+        break;                               ////breaks again before switching cases and starting over
+    }
+  }
+  return germanCars;                           ////this will return the newly filled array once it's complete. 
 }
 
 /**
@@ -196,9 +294,9 @@ function getGermanCars(/* code here */) {
  *   return num * 2
  * }
 */
-const sum = null; // code here!
-const addFive = null; // code here!
-const argTimesTwo = null; // code here!
+const sum =(a, b) => (a+b);
+const addFive =(num1) => (num1 + 5);
+const argTimesTwo =(num1) => (num1 *2);
 
 /**
  * ### Challenge `carMaker`
@@ -213,8 +311,15 @@ const argTimesTwo = null; // code here!
  *         (1) causes the odometer in the object to be increased by the distance,
  *         (2) returns the updated value of the `odometer`.
 */
-function carMaker(/* code here */) {
-  /* code here */
+function carMaker(num1) {
+  const odometer = {
+    odometer: num1,
+    drive: function(dist) {
+      return dist*num1
+    },
+    // if (drive <= num1) 
+  }
+  return odometer
 }
 
 /// ////// END OF CHALLENGE /////////
